@@ -7,25 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.verificador.catalogos.domain.entity.Marcas;
-import com.verificador.catalogos.service.MarcasService;
+import com.verificador.catalogos.domain.entity.Marca;
+import com.verificador.catalogos.service.MarcaService;
 import static com.verificador.catalogos.utils.Constantes.CONTEXT_MARCAS;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = CONTEXT_MARCAS)
-public class MarcasController {
+public class MarcaController {
 	
-	private final MarcasService marcasService;
+	private final MarcaService marcasService;
 	
 	@Autowired
-	private MarcasController(MarcasService marcasService) {
+	private MarcaController(MarcaService marcasService) {
 		this.marcasService = marcasService;
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Marcas>> consultarMarcas(){
+	public ResponseEntity<List<Marca>> consultarMarcas(){
 		return ResponseEntity.status(HttpStatus.OK).body(marcasService.consultarMarcas());
 	}
 }
