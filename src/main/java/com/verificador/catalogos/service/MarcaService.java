@@ -1,26 +1,42 @@
 package com.verificador.catalogos.service;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.verificador.catalogos.domain.entity.Marca;
 import com.verificador.catalogos.domain.repository.MarcaRepository;
+import com.verificador.catalogos.facade.MarcaFacade;
+import com.verificador.catalogos.web.model.MarcaModel;
+import static com.verificador.catalogos.web.model.MarcaModel.crearModeloMarca;
+
 
 
 @Service
-public class MarcaService {
+public class MarcaService implements MarcaFacade{
 	
-	private final MarcaRepository marcasRepository;
+	private final MarcaRepository marcaRepository;
 	
 	@Autowired
-	private MarcaService(MarcaRepository marcasRepository) {
-		this.marcasRepository = marcasRepository;
+	private MarcaService(MarcaRepository marcaRepository) {
+		this.marcaRepository = marcaRepository;
 	}
 	
-	public List<Marca> consultarMarcas(){
-		return marcasRepository.findAll();	
+	@Override
+	public List<MarcaModel> findAll() {
+		List<Marca> listaMarcas = (List<Marca>) marcaRepository.findAll();
+
+		return listaMarcas
+		.stream()
+		.map(m -> crearModeloMarca(m))
+		.collect(Collectors.toList());
+				
+	}
+
+	@Override
+	public MarcaModel findById(Long id) {
+		Marca marca = marcaRepository.findById(id).orElse(null); 
+		return crearModeloMarca(marca);
 	}
 
 }
