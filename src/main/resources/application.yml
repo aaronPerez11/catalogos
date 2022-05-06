@@ -4,7 +4,7 @@ spring:
   application:
     name: catalogos
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalogos
+    url: jdbc:postgresql://localhost:5432/gasolinera
     username: postgres
     password: admin
   jpa:

@@ -11,7 +11,6 @@ import com.verificador.catalogos.web.model.MarcaModel;
 import static com.verificador.catalogos.web.model.MarcaModel.crearModeloMarca;
 
 
-
 @Service
 public class MarcaService implements MarcaFacade{
 	

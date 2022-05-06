@@ -38,6 +38,11 @@ public class TipoEstacion implements Serializable{
 	@JoinColumn(name = "id_tipo_bomba", referencedColumnName = "id_tipo_bomba")
 	private TipoBomba tipoBomba;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "id_estacion", referencedColumnName = "id_estacion")
+	private Estacion estacion;
+	
 	@Column(name = "nombre")
 	private String codigo;
 }
