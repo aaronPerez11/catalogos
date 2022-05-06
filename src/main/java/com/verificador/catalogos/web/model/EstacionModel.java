@@ -13,7 +13,7 @@ import lombok.experimental.Tolerate;
 public class EstacionModel {
 
 	private Long id;
-	private String marca;
+	private String nombre;
 	private String direccion;
 	
 	@Tolerate
@@ -25,7 +25,7 @@ public class EstacionModel {
 		if(Objects.nonNull(estacion)) {
 			return EstacionModel.builder()
 					.id(estacion.getId())
-					.marca(estacion.getMarca().getNombre())
+					.nombre(estacion.getMarca().getNombre())
 					.direccion(estacion.getDireccion())
 					.build();
 		}

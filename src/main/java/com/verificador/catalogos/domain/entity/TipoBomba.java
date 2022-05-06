@@ -13,14 +13,13 @@ import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
-@Table(name = "estacion", schema = "public", indexes = {
-		@Index(name = "id_estacion_idx", columnList = "id_estacion")
+@Table(name = "tipo_bomba", schema = "public", indexes = {
+		@Index(name = "id_tipo_bomba_idx", columnList = "id_tipo_bomba")
 })
 @Getter
 public class TipoBomba implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

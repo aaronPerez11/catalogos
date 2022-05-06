@@ -34,7 +34,7 @@ public class MarcaService implements MarcaFacade{
 
 	@Override
 	public MarcaModel findById(Long id) {
-		Marca marca = marcaRepository.findById(id).orElse(null); 
+		Marca marca = marcaRepository.findById(id).orElseThrow(null); 
 		return crearModeloMarca(marca);
 	}
 
