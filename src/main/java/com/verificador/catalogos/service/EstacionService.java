@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.verificador.catalogos.domain.entity.Estacion;
 import com.verificador.catalogos.domain.repository.EstacionRepository;
+import com.verificador.catalogos.exception.ExceptionNotFound;
 import com.verificador.catalogos.facade.EstacionFacade;
+import com.verificador.catalogos.utils.enums.TipoErrorEnum;
 import com.verificador.catalogos.web.model.EstacionModel;
 import com.verificador.catalogos.web.model.MarcaModel;
 import static com.verificador.catalogos.web.model.EstacionModel.crearEstacionModel;
@@ -28,17 +30,21 @@ public class EstacionService implements EstacionFacade {
 	@Override
 	public List<EstacionModel> findEstacionByIdMarca(Long id) {
 		List<Estacion> consultarEstaciones = estacionRepository.findByMarcaId(id);
+		if(consultarEstaciones.isEmpty()) {
+			throw new ExceptionNotFound(TipoErrorEnum.GASOLINERAS_NO_ENCONTRADAS.getError());
+		}
 		
 		return consultarEstaciones
 				.stream()
-				.map(estacion -> crearEstacionModel(estacion))
+				.map(EstacionModel::crearEstacionModel)
 				.collect(Collectors.toList());
 	}
 
 
 	@Override
 	public EstacionModel findEstacionById(Long id) {
-		Estacion estacionEntity = estacionRepository.findById(id).orElseThrow();
+		Estacion estacionEntity = estacionRepository.findById(id)
+				.orElseThrow(() -> new ExceptionNotFound(TipoErrorEnum.ESTACION_NO_ENCONTRADA.getError()));
 		return crearEstacionModel(estacionEntity);
 	}
 
@@ -49,7 +55,7 @@ public class EstacionService implements EstacionFacade {
 		EstacionModel gasolinera = findEstacionById(idGasolinera);
 		
 		if(!marca.getNombre().equalsIgnoreCase(gasolinera.getNombre())) {
-			new Throwable("Error");
+			throw new ExceptionNotFound(TipoErrorEnum.ESTACIONES_NO_ENCONTRADA.getError());
 		}
 		
 		return gasolinera;

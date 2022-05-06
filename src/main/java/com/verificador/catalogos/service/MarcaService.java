@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.verificador.catalogos.domain.entity.Marca;
 import com.verificador.catalogos.domain.repository.MarcaRepository;
+import com.verificador.catalogos.exception.ExceptionNotFound;
 import com.verificador.catalogos.facade.MarcaFacade;
+import com.verificador.catalogos.utils.enums.TipoErrorEnum;
 import com.verificador.catalogos.web.model.MarcaModel;
 import static com.verificador.catalogos.web.model.MarcaModel.crearModeloMarca;
 
@@ -24,17 +26,20 @@ public class MarcaService implements MarcaFacade{
 	@Override
 	public List<MarcaModel> findAll() {
 		List<Marca> listaMarcas = (List<Marca>) marcaRepository.findAll();
+		if(listaMarcas.isEmpty()) {
+			 throw new ExceptionNotFound(TipoErrorEnum.MARCAS_NO_ENCONTRADAS.getError());
+		}
 
 		return listaMarcas
 		.stream()
-		.map(m -> crearModeloMarca(m))
+		.map(MarcaModel::crearModeloMarca)
 		.collect(Collectors.toList());
 				
 	}
 
 	@Override
 	public MarcaModel findById(Long id) {
-		Marca marca = marcaRepository.findById(id).orElseThrow(null); 
+		Marca marca = marcaRepository.findById(id).orElseThrow(() -> new ExceptionNotFound(TipoErrorEnum.MARCA_NO_ENCONTRADA.getError())); 
 		return crearModeloMarca(marca);
 	}
 
