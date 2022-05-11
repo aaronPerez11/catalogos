@@ -36,6 +36,11 @@ public class Estacion implements Serializable{
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "id_marca", referencedColumnName = "id_marca")
 	private Marca marca;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "id_tipo_lector", referencedColumnName = "id_tipo_lector")
+	private TipoLector tipoLector;
 		
 	@Column(name = "direccion")
 	private String direccion;

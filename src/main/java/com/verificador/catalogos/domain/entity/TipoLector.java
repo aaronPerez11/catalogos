@@ -1,6 +1,7 @@
 package com.verificador.catalogos.domain.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,27 +14,27 @@ import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
-@Table(name = "marca", schema = "public",
+@Table(name = "tipo_lector", schema = "public",
 indexes = {
-		@Index(name = "id_marca_idx", columnList = "id_marca")
+		@Index(name = "id_tipo_lector_idx", columnList = "id_tipo_lector")
 })
 @Getter
-public class Marca implements Serializable {
+public class TipoLector implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_marca")
+	@Column(name = "id_tipo_lector")
 	private Long id;
 	
-	@Column(name = "nombre")
-	private String nombre;
+	@Column(name = "version")
+	private String version;
 	
-	@Column(name = "descripcion")
-	private String descripcion;
+	@Column(name = "marca")
+	private String marca;
 	
-	@Column(name = "imagen")
-	private String img;
+	@Column(name = "fecha_actualizacion")
+	private Date ultimaActualizacion;
 
 }

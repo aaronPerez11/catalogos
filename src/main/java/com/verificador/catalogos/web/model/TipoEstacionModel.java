@@ -23,6 +23,8 @@ public class TipoEstacionModel {
 	@Schema(description = "Código asignado a la estación de servicio", example = "ESG-001")
 	private String codigo;
 	
+	
+	
 	@Tolerate
 	protected TipoEstacionModel() {
 		

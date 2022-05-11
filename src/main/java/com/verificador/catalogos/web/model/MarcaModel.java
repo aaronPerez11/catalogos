@@ -24,6 +24,8 @@ public class MarcaModel {
 	@Schema(description = "Descripción de la gasolinera.", example = "Gasolinera propiedad de Pemex")
 	private String descripcion;
 	
+	@Schema(description = "Caratula de gasolinera", example = "pemex.jgp")
+	private String img;
 
 	@Tolerate
 	protected MarcaModel() {
@@ -36,6 +38,7 @@ public class MarcaModel {
 					.id(marca.getId())
 					.nombre(marca.getNombre())
 					.descripcion(marca.getDescripcion())
+					.img(marca.getImg())
 					.build();	
 		}
 		return null;

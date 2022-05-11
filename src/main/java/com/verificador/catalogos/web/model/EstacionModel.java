@@ -22,6 +22,14 @@ public class EstacionModel {
 	
 	@Schema(description = "Dirección de la estación gasolinera", example = "Arturo B. de la Garza esq, Jorge González Camarena s/n, El Roble, 66414 San Nicolás de los Garza, N.L.")
 	private String direccion;
+
+	@Schema(description = "Caratula de gasolinera", example = "pemex.jgp")
+	private String img;
+	
+	@Schema(description = "Tipo de lector volumetrico")
+	private TipoLectorModel tipoLector;
+	
+
 	
 	@Tolerate
 	protected EstacionModel() {
@@ -34,6 +42,8 @@ public class EstacionModel {
 					.id(estacion.getId())
 					.nombre(estacion.getMarca().getNombre())
 					.direccion(estacion.getDireccion())
+					.tipoLector(TipoLectorModel.crearTipoLectorModel(estacion.getTipoLector()))
+					.img(estacion.getMarca().getImg())
 					.build();
 		}
 		return null;
